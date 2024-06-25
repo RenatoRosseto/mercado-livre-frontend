@@ -9,17 +9,20 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <Head>
-        <title>React Avançado - Boilerplate</title>
-        <link rel="shortcut icon" href="/img/icon-512.png" />
-        <link rel="apple-touch-icon" href="/img/icon-512.png" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#06092B" />
+        <title>Mercado Livre</title>
         <meta
           name="description"
-          content="A simple project starter to work with TypeScript, React, NextJS and Styled Components"
+          content="Projeto simples para buscar e detalhar produtos do Mercado Livre"
         />
+        <meta
+          name="keywords"
+          content="Mercado Livre, produtos, busca, detalhes"
+        />
+        <meta name="author" content="Renato Rosseto Neto" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <GlobalStyles />
+
       <Component {...pageProps} />
     </ThemeProvider>
   );
