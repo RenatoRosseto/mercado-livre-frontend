@@ -1,6 +1,6 @@
 export default {
   grid: {
-    container: '130rem',
+    container: '120rem',
   },
   border: {
     radius: {
@@ -25,6 +25,7 @@ export default {
   },
   colors: {
     textPrimary: '#030517',
+    textSecondary: '#767676',
     mainBg: '#ebebeb',
     yellowBg: '#ffe600',
     white: '#fff',
