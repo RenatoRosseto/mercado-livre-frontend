@@ -43,6 +43,7 @@ export default {
     xsmall: '0.4rem',
     small: '0.8rem',
     medium: '1.6rem',
-    large: '3.2rem',
+    large: '2.4rem',
+    xxlarge: '3.2rem',
   },
 } as const;

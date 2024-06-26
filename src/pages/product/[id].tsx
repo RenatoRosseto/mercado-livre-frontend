@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Card from 'components/atom/Card';
 import CategoriesList from 'components/atom/CategoriesList';
+import Button from 'components/atom/Button';
 
 const ContainerCategories = styled.div`
   margin: ${({ theme }) => `${theme.spacings.medium} ${theme.spacings.none}`};
@@ -12,7 +13,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: ${({ theme }) => theme.spacings.large};
+  padding: ${({ theme }) => theme.spacings.xxlarge};
 `;
 
 const ProductCard = styled.div`
@@ -55,7 +56,7 @@ const Price = styled.div`
   font-size: ${({ theme }) => theme.font.sizes.huge};
   font-weight: ${({ theme }) => theme.font.bold};
   color: ${({ theme }) => theme.colors.textPrimary};
-  margin: ${({ theme }) => `${theme.spacings.large} ${theme.spacings.none}`};
+  margin: ${({ theme }) => `${theme.spacings.xxlarge} ${theme.spacings.none}`};
 `;
 
 const DescriptionContainer = styled.div`
@@ -65,7 +66,7 @@ const DescriptionContainer = styled.div`
 const DescriptionTitle = styled.h2`
   font-size: ${({ theme }) => theme.font.sizes.xxlarge};
   font-weight: ${({ theme }) => theme.font.bold};
-  margin-bottom: ${({ theme }) => theme.spacings.large};
+  margin-bottom: ${({ theme }) => theme.spacings.xxlarge};
 `;
 
 const DescriptionText = styled.p`
@@ -94,6 +95,7 @@ function Product() {
               <SoldText>Novo - 234 vendidos</SoldText>
               <ProductTitle>Deco Reverse</ProductTitle>
               <Price>R$ 1980</Price>
+              <Button>Comprar</Button>
             </InfoContainer>
           </ProductCard>
           <DescriptionContainer>
