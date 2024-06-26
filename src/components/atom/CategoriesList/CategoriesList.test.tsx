@@ -14,6 +14,6 @@ describe('CategoriesList component', () => {
     const strings = ['bla', 'ble', 'bli'];
     const { getByText } = render(<CategoriesList categories={strings} />);
     const paragraph = getByText('bla > ble > bli');
-    expect(paragraph).toHaveStyleRule('color', '#767676');
+    expect(paragraph).toHaveStyleRule('color', '#999999');
   });
 });
