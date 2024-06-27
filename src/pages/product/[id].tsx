@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Card from 'components/atom/Card';
 import CategoriesList from 'components/atom/CategoriesList';
 import Button from 'components/atom/Button';
+import ProductNotFound from 'components/atom/ProductNotFound';
 
 import { getProductDetailsById } from 'services/productDetailsService';
 import { ProductDetails } from 'models/product';
@@ -110,7 +111,7 @@ function Product() {
   }, [id]);
 
   if (error) {
-    return <div>Erro ao carregar o produto.</div>;
+    return <ProductNotFound />;
   }
 
   if (!product) {
