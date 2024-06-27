@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 
 import Card from 'components/atom/Card';
 import CategoriesList from 'components/atom/CategoriesList';
 import Button from 'components/atom/Button';
+
+import { getProductDetailsById } from 'services/productDetailsService';
+import { ProductDetails } from 'models/product';
+import { formatCurrency } from 'utils/formatCurrency';
 
 const ContainerCategories = styled.div`
   margin: ${({ theme }) => `${theme.spacings.medium} ${theme.spacings.none}`};
@@ -76,31 +81,71 @@ const DescriptionText = styled.p`
 `;
 
 function Product() {
+  const router = useRouter();
+  const { id } = router.query;
+  const [product, setProduct] = useState<ProductDetails | null>(null);
+  const [error, setError] = useState<Error | null>(null);
+
+  const formatSoldQty = (soldQty?: number): string => {
+    if (!soldQty) {
+      return '';
+    }
+    if (soldQty === 1) {
+      return '| 1 vendido';
+    }
+    if (soldQty > 1) {
+      return `| ${soldQty} vendidos`;
+    }
+    return '';
+  };
+
+  useEffect(() => {
+    if (id) {
+      getProductDetailsById(id as string)
+        .then((response: ProductDetails) => {
+          setProduct(response);
+        })
+        .catch(setError);
+    }
+  }, [id]);
+
+  if (error) {
+    return <div>Erro ao carregar o produto.</div>;
+  }
+
+  if (!product) {
+    return <div>Carregando...</div>;
+  }
+
   return (
     <div className="container">
       <ContainerCategories>
-        <CategoriesList categories={['bla', 'ble', 'bli']} />
+        <CategoriesList categories={product.categories ?? []} />
       </ContainerCategories>
 
       <Card>
         <Container>
           <ProductCard>
             <ImageContainer>
-              <Image
-                src="http://http2.mlstatic.com/D_864844-MLM51559388062_092022-O.jpg"
-                alt="Product Image"
-              />
+              <Image src={product.picture_url} alt={product.title} />
             </ImageContainer>
             <InfoContainer>
-              <SoldText>Novo - 234 vendidos</SoldText>
-              <ProductTitle>Deco Reverse</ProductTitle>
-              <Price>R$ 1980</Price>
-              <Button>Comprar</Button>
+              <SoldText>
+                {product.condition} {formatSoldQty(product.sold_qty)}
+              </SoldText>
+              <ProductTitle>{product.title}</ProductTitle>
+              <Price>
+                {formatCurrency(
+                  Number(`${product.price.amount}.${product.price.decimals}`),
+                  product.price.currency,
+                )}
+              </Price>
+              <Button fullWidth>Comprar</Button>
             </InfoContainer>
           </ProductCard>
           <DescriptionContainer>
             <DescriptionTitle>Descrição do produto</DescriptionTitle>
-            <DescriptionText>Desc...</DescriptionText>
+            <DescriptionText>{product.description}</DescriptionText>
           </DescriptionContainer>
         </Container>
       </Card>
