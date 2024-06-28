@@ -66,7 +66,7 @@ const StyledButton = styled.button<ButtonProps>`
   ${({ fullWidth }) => fullWidth && 'width: 100%;'}
 
   ${media.lessThan('medium')`
-    font-size: 10px;
+    font-size: ${({ theme }) => theme.font.sizes.medium}
   `}
 `;
 

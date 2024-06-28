@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
+import media from 'styled-media-query';
 
 import Card from 'components/atom/Card';
 import CategoriesList from 'components/atom/CategoriesList';
@@ -11,11 +12,17 @@ import { getProductDetailsById } from 'services/productDetailsService';
 import { ProductDetails } from 'models/product';
 import { formatCurrency } from 'utils/formatCurrency';
 
+const Container = styled.div`
+  ${media.lessThan('medium')`
+    padding: ${({ theme }) => `${theme.spacings.small}`};
+  `}
+`;
+
 const ContainerCategories = styled.div`
   margin: ${({ theme }) => `${theme.spacings.medium} ${theme.spacings.none}`};
 `;
 
-const Container = styled.div`
+const ContainerProduct = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -27,6 +34,10 @@ const ProductCard = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+
+  ${media.lessThan('medium')`
+    flex-direction: column;
+  `}
 `;
 
 const ImageContainer = styled.div`
@@ -67,6 +78,10 @@ const Price = styled.div`
 
 const DescriptionContainer = styled.div`
   width: 100%;
+
+  ${media.lessThan('medium')`
+    margin-top: ${({ theme }) => theme.spacings.medium};
+  `}
 `;
 
 const DescriptionTitle = styled.h2`
@@ -119,13 +134,13 @@ function Product() {
   }
 
   return (
-    <div className="container">
+    <Container className="container">
       <ContainerCategories>
         <CategoriesList categories={product.categories ?? []} />
       </ContainerCategories>
 
       <Card>
-        <Container>
+        <ContainerProduct>
           <ProductCard>
             <ImageContainer>
               <Image src={product.picture_url} alt={product.title} />
@@ -148,9 +163,9 @@ function Product() {
             <DescriptionTitle>Descrição do produto</DescriptionTitle>
             <DescriptionText>{product.description}</DescriptionText>
           </DescriptionContainer>
-        </Container>
+        </ContainerProduct>
       </Card>
-    </div>
+    </Container>
   );
 }
 

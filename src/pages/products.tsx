@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import Cookies from 'js-cookie';
+import media from 'styled-media-query';
 
 import AppContext from 'context/AppContext';
 import ProductItem from 'components/molecule/ProductItem';
@@ -11,6 +12,12 @@ import Card from 'components/atom/Card';
 import CategoriesList from 'components/atom/CategoriesList';
 import Divider from 'components/atom/Divider';
 import ProductNotFound from 'components/atom/ProductNotFound';
+
+const Container = styled.div`
+  ${media.lessThan('medium')`
+    padding: ${({ theme }) => `${theme.spacings.small}`};
+  `}
+`;
 
 const ContainerCategories = styled.div`
   margin: ${({ theme }) => `${theme.spacings.medium} ${theme.spacings.none}`};
@@ -56,7 +63,7 @@ function Products() {
   }
 
   return (
-    <div className="container">
+    <Container className="container">
       <ContainerCategories>
         <CategoriesList categories={productsSearch.categories ?? []} />
       </ContainerCategories>
@@ -71,7 +78,7 @@ function Products() {
           </React.Fragment>
         ))}
       </Card>
-    </div>
+    </Container>
   );
 }
 

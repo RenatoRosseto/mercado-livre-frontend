@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import media from 'styled-media-query';
 
 export const ProductCard = styled.div`
   width: 100%;
@@ -7,6 +8,10 @@ export const ProductCard = styled.div`
   gap: ${({ theme }) => theme.spacings.medium};
   padding: ${({ theme }) => theme.spacings.medium};
   cursor: pointer;
+
+  ${media.lessThan('medium')`
+    flex-direction: column-reverse;
+  `}
 `;
 
 export const ImageContainer = styled.div`
@@ -25,12 +30,20 @@ export const Image = styled.img`
 export const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
+
+  ${media.lessThan('medium')`
+    flex-direction: column-reverse;
+  `}
 `;
 
 export const ProductTitle = styled.h1`
   font-size: ${({ theme }) => theme.font.sizes.large};
   color: ${({ theme }) => theme.colors.textPrimary};
   margin-top: ${({ theme }) => theme.spacings.xxlarge};
+
+  ${media.lessThan('medium')`
+    margin-top: ${({ theme }) => theme.spacings.none};
+  `}
 `;
 
 export const Price = styled.div`
@@ -39,6 +52,10 @@ export const Price = styled.div`
   color: ${({ theme }) => theme.colors.textPrimary};
   display: flex;
   align-items: center;
+
+  ${media.lessThan('medium')`
+    margin-top: ${({ theme }) => theme.spacings.medium};
+  `}
 `;
 
 export const FreeShippingIcon = styled.img`
