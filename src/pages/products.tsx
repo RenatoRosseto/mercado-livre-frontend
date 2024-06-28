@@ -5,6 +5,7 @@ import ProductItem from 'components/molecule/ProductItem';
 import { Product } from 'models/product';
 import Card from 'components/atom/Card';
 import CategoriesList from 'components/atom/CategoriesList';
+import Divider from 'components/atom/Divider';
 
 const ContainerCategories = styled.div`
   margin: ${({ theme }) => `${theme.spacings.medium} ${theme.spacings.none}`};
@@ -48,8 +49,10 @@ function Products() {
 
       <Card>
         {products.map((product: Product) => (
-          // eslint-disable-next-line react/jsx-key
-          <ProductItem {...product} />
+          <React.Fragment key={product.id}>
+            <ProductItem {...product} />
+            <Divider />
+          </React.Fragment>
         ))}
       </Card>
     </div>

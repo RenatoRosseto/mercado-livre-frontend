@@ -15,7 +15,7 @@ import { formatCurrency } from 'utils/formatCurrency';
 
 const ProductItem: React.FC<Product> = (product: Product) => {
   return (
-    <ProductCard key={product.id} onClick={() => console.log(product.id)}>
+    <ProductCard onClick={() => console.log(product.id)}>
       <ImageContainer>
         <Image src={product.picture_url} alt={product.title} />
       </ImageContainer>
