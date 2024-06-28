@@ -4,6 +4,7 @@ export default {
   },
   border: {
     radius: {
+      xxsmall: '0.2rem',
       xsmall: '0.4rem',
       small: '0.6rem',
       medium: '0.8rem',

@@ -1,8 +1,7 @@
-import Card from 'components/atom/Card';
-export default function Home() {
-  return (
-    <Card>
-      <h1>Meli</h1>
-    </Card>
-  );
+import React from 'react';
+
+function Home() {
+  return <></>;
 }
+
+export default Home;
