@@ -45,6 +45,10 @@ const InputSearch = () => {
     }
   };
 
+  const handleUpdateSearchTerm = (term: string) => {
+    setAuxSearchTerm(term);
+  };
+
   const handleRemoveSearchTerm = (id: string) => {
     const updatedSearchResults = searchResults.filter(
       (result) => result.id !== id,
@@ -97,10 +101,18 @@ const InputSearch = () => {
       </SearchButton>
       {showResults && searchResults.length > 0 && (
         <SearchResultsContainer>
-          {searchResults.map((result) => (
-            <SearchResultItem key={result.id}>
+          {searchResults.map((result: SearchResultProps) => (
+            <SearchResultItem
+              key={result.id}
+              onClick={() => handleUpdateSearchTerm(result.term)}
+            >
               {result.term}
-              <RemoveButton onClick={() => handleRemoveSearchTerm(result.id)}>
+              <RemoveButton
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleRemoveSearchTerm(result.id);
+                }}
+              >
                 <Image
                   src="/images/icons/icon-remove.svg"
                   alt="image remove item"
