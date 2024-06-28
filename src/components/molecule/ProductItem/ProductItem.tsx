@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 
 import {
   ProductCard,
@@ -14,8 +15,14 @@ import { Product } from 'models/product';
 import { formatCurrency } from 'utils/formatCurrency';
 
 const ProductItem: React.FC<Product> = (product: Product) => {
+  const router = useRouter();
+
+  const handleOpenProductDetails = () => {
+    router.push(`/product/${product.id}`);
+  };
+
   return (
-    <ProductCard onClick={() => console.log(product.id)}>
+    <ProductCard onClick={handleOpenProductDetails}>
       <ImageContainer>
         <Image src={product.picture_url} alt={product.title} />
       </ImageContainer>
