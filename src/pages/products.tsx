@@ -1,57 +1,73 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
+import Cookies from 'js-cookie';
 
+import AppContext from 'context/AppContext';
 import ProductItem from 'components/molecule/ProductItem';
 import { Product } from 'models/product';
+import { ProductsSearch } from 'models/productsSearch';
+import { getProductsSearchByQuery } from 'services/productsSearchService';
 import Card from 'components/atom/Card';
 import CategoriesList from 'components/atom/CategoriesList';
 import Divider from 'components/atom/Divider';
+import ProductNotFound from 'components/atom/ProductNotFound';
 
 const ContainerCategories = styled.div`
   margin: ${({ theme }) => `${theme.spacings.medium} ${theme.spacings.none}`};
 `;
 
+const ContainerDivider = styled.div`
+  margin: ${({ theme }) => `${theme.spacings.medium}`};
+`;
+
 function Products() {
-  const categories = ['bla', 'ble'];
-  const products: Product[] = [
-    {
-      id: 'MLB4381812076',
-      title: 'Apple iPhone 13 (128 Gb) Meia-noite - Distribuidor Autorizado',
-      price: {
-        currency: 'BRL',
-        amount: 3976,
-        decimals: 70,
-      },
-      picture_url:
-        'http://http2.mlstatic.com/D_790522-MLA47782243619_102021-I.jpg',
-      condition: 'new',
-      free_shipping: true,
-    },
-    {
-      id: 'MLB4410983832',
-      title: 'Apple iPhone 15 (128 Gb) - Rosa - Distribuidor Autorizado',
-      price: {
-        currency: 'BRL',
-        amount: 5332,
-        decimals: 20,
-      },
-      picture_url:
-        'http://http2.mlstatic.com/D_958009-MLA71782868134_092023-I.jpg',
-      condition: 'new',
-      free_shipping: true,
-    },
-  ];
+  const { searchTerm } = useContext(AppContext);
+  const [productsSearch, setProductsSearch] = useState<ProductsSearch | null>(
+    null,
+  );
+  const [error, setError] = useState<Error | null>(null);
+  const storedSearchTerms = Cookies.get('searchTerms');
+
+  const getProductsSearch = (query: string) => {
+    getProductsSearchByQuery(query)
+      .then((response: ProductsSearch) => {
+        setProductsSearch(response);
+      })
+      .catch(setError);
+  };
+
+  useEffect(() => {
+    if (searchTerm) {
+      getProductsSearch(searchTerm);
+    } else if (storedSearchTerms) {
+      const parsedSearchTerms = JSON.parse(storedSearchTerms);
+      getProductsSearch(parsedSearchTerms[0]?.term);
+    } else {
+      getProductsSearch('iphone 12');
+    }
+  }, [searchTerm, storedSearchTerms]);
+
+  if (error) {
+    return <ProductNotFound />;
+  }
+
+  if (!productsSearch) {
+    return <div>Carregando...</div>;
+  }
+
   return (
     <div className="container">
       <ContainerCategories>
-        <CategoriesList categories={categories ?? []} />
+        <CategoriesList categories={productsSearch.categories ?? []} />
       </ContainerCategories>
 
       <Card>
-        {products.map((product: Product) => (
+        {productsSearch.products.map((product: Product) => (
           <React.Fragment key={product.id}>
             <ProductItem {...product} />
-            <Divider />
+            <ContainerDivider>
+              <Divider />
+            </ContainerDivider>
           </React.Fragment>
         ))}
       </Card>

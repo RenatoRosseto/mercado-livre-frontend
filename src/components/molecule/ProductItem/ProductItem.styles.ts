@@ -14,6 +14,7 @@ export const ImageContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 18rem;
+  min-width: 18rem;
 `;
 
 export const Image = styled.img`
