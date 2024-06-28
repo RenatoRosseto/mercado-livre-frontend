@@ -65,3 +65,8 @@ $ yarn generate
 ```
 
 ## Telas
+![image](https://github.com/RenatoRosseto/mercado-livre-frontend/assets/8394203/11f2921f-06b9-4439-9761-567db7069b51)
+
+![image](https://github.com/RenatoRosseto/mercado-livre-frontend/assets/8394203/5fffd770-dec6-4fc4-b18f-ff1f3aad62ea)
+
+![image](https://github.com/RenatoRosseto/mercado-livre-frontend/assets/8394203/d5ba4e5e-e3ca-4efd-8d7e-2389bd455d07)
